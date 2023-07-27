@@ -146,7 +146,6 @@ def send_email_with_dataframe(subject, dataframe, sender, recipients, password):
     # Set the HTML content of the email
     if dataframe['signal'].iloc[-1] == 0:
 
-
         email_body = f"""
         <html>
         <head>
@@ -167,22 +166,13 @@ def send_email_with_dataframe(subject, dataframe, sender, recipients, password):
             </style>
         </head>
         <body>
-        <h1> 😀📈 Not an alert day 🔥🚀 : Relax </h1>
+        <h2> 😀📈 Not an alert day 🔥🚀 : Relax </h2>
 
-        <h3>Current SPY price is --> $ {dataframe['Close'].iloc[-1]}</h3>
-        <h3>Current P/C Ratio is --> $ {dataframe['pull_call_ratio'].iloc[-1]}</h3>
-        <h3>Current FEar & Greed Index price is --> $ {dataframe['index'].iloc[-1]}</h3>
+        <h3>✅ S&P 500 price is --> $ {dataframe['Close'].iloc[-1]:.2f}</h3>
+        <h3>✅ P/C Ratio is --> {dataframe['pull_call_ratio'].iloc[-1]:.2f}</h3>
+        <h3>✅ Fear & Greed Index price is --> {dataframe['index'].iloc[-1]:.2f}</h3>
         
         <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Index</th>
-                    <th>Pull/Call Ratio</th>
-                    <th>Close</th>
-                    <th>Signal</th>
-                </tr>
-            </thead>
             <tbody>
                 {html_table}
             </tbody>
@@ -216,22 +206,13 @@ def send_email_with_dataframe(subject, dataframe, sender, recipients, password):
             </style>
         </head>
         <body>
-        <h1> 😢📉 Its an alert 🔥🚀: Invest some time this week! </h1>
+        <h2> 😢📉 Its an alert 🔥🚀: Invest some time this week! </h2>
 
-        <h3>Current SPY price is --> $ {dataframe['Close'].iloc[-1]}</h3>
-        <h3>Current P/C Ratio is --> $ {dataframe['pull_call_ratio'].iloc[-1]}</h3>
-        <h3>Current FEar & Greed Index price is --> $ {dataframe['index'].iloc[-1]}</h3>
+        <h3>✅ S&P 500 price is --> $ {dataframe['Close'].iloc[-1]:.2f}</h3>
+        <h3>✅ P/C Ratio is --> {dataframe['pull_call_ratio'].iloc[-1]:.2f}</h3>
+        <h3>✅ Fear & Greed Index price is --> {dataframe['index'].iloc[-1]:.2f}</h3>
         
         <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Index</th>
-                    <th>Pull/Call Ratio</th>
-                    <th>Close</th>
-                    <th>Signal</th>
-                </tr>
-            </thead>
             <tbody>
                 {html_table}
             </tbody>
@@ -250,13 +231,11 @@ def send_email_with_dataframe(subject, dataframe, sender, recipients, password):
     print("Message sent!")
 
 
-
-
 ## updating the data
 def trade_trigger(request):
   subject = " SPY stock market alert table"
   sender = "tradingbotwichita@gmail.com"
-  recipients = ["tradingbotwichita@gmail.com", "bvnd.sai321@gmail.com"]
+  recipients = ["tradingbotwichita@gmail.com","vamshims128@gmail.com","ramyareddymuddasani1997@gmail.com"]
   password = "dufscwypfsxebszu"
 
   bucket_name = 'historicaltradingdata'
