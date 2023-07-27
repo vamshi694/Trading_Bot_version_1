@@ -136,22 +136,112 @@ def send_email_with_dataframe(subject, dataframe, sender, recipients, password):
     # Convert the DataFrame to an HTML table
     html_table = dataframe.to_html(index=False)
 
-    # Create a multipart message and set the appropriate headers
-    message = MIMEMultipart()
+    # Create a MIMEMultipart instance
+    message = MIMEMultipart("alternative")
+
     message["Subject"] = subject
     message["From"] = sender
     message["To"] = ', '.join(recipients)
 
     # Set the HTML content of the email
-    email_body = f"""
-    <html>
-    <body>
-    <h2>5-Day Fear_index Trading:</h2>
-    {html_table}
-    </body>
-    </html>
-    """
-    message.attach(MIMEText(email_body, "html"))
+    if dataframe['signal'].iloc[-1] == 0:
+
+
+        email_body = f"""
+        <html>
+        <head>
+            <style>
+                /* CSS style for the table */
+                table {{
+                    border-collapse: collapse;
+                    width: 100%;
+                }}
+                th, td {{
+                    border: 1px solid black;
+                    padding: 8px;
+                    text-align: center;
+                }}
+                th {{
+                    background-color: #f2f2f2;
+                }}
+            </style>
+        </head>
+        <body>
+        <h1> 😀📈 Not an alert day 🔥🚀 : Relax </h1>
+
+        <h3>Current SPY price is --> $ {dataframe['Close'].iloc[-1]}</h3>
+        <h3>Current P/C Ratio is --> $ {dataframe['pull_call_ratio'].iloc[-1]}</h3>
+        <h3>Current FEar & Greed Index price is --> $ {dataframe['index'].iloc[-1]}</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Index</th>
+                    <th>Pull/Call Ratio</th>
+                    <th>Close</th>
+                    <th>Signal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {html_table}
+            </tbody>
+        </table>
+
+        <p>Thank you for using our service! 🙏</p>
+        </body>
+        </html>
+        """
+        message.attach(MIMEText(email_body, "html"))
+    
+    else:
+
+        email_body = f"""
+        <html>
+        <head>
+            <style>
+                /* CSS style for the table */
+                table {{
+                    border-collapse: collapse;
+                    width: 100%;
+                }}
+                th, td {{
+                    border: 1px solid black;
+                    padding: 8px;
+                    text-align: center;
+                }}
+                th {{
+                    background-color: #f2f2f2;
+                }}
+            </style>
+        </head>
+        <body>
+        <h1> 😢📉 Its an alert 🔥🚀: Invest some time this week! </h1>
+
+        <h3>Current SPY price is --> $ {dataframe['Close'].iloc[-1]}</h3>
+        <h3>Current P/C Ratio is --> $ {dataframe['pull_call_ratio'].iloc[-1]}</h3>
+        <h3>Current FEar & Greed Index price is --> $ {dataframe['index'].iloc[-1]}</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Index</th>
+                    <th>Pull/Call Ratio</th>
+                    <th>Close</th>
+                    <th>Signal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {html_table}
+            </tbody>
+        </table>
+
+        <p>Thank you for using our service! 🙏</p>
+        </body>
+        </html>
+        """
+        message.attach(MIMEText(email_body, "html"))
 
     # Connect to the SMTP server and send the email
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
