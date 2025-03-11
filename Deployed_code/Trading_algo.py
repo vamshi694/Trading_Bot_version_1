@@ -167,7 +167,7 @@ def trade_trigger(request):
   subject = " SPY stock market alert table"
   sender = "tradingbotwichita@gmail.com"
   recipients = ["tradingbotwichita@gmail.com", "bvnd.sai321@gmail.com"]
-  password = "dufscwypfsxebszu"
+  password = ""
 
   bucket_name = 'historicaltradingdata'
   file_name = 'fearindex_pull_ratio_2021.csv'
